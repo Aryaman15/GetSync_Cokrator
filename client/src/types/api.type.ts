@@ -199,7 +199,6 @@ export type ProgressEmployeeResponseType = {
   };
   tasks: {
     taskCode?: string;
-    title: string;
     taskTypeCode?: string;
     taskTypeName?: string;
     status: string;
@@ -249,7 +248,13 @@ export type WorkspaceFileUploadResponseType = {
 
 export type WorkspaceFileActivityLogType = {
   _id: string;
-  action: "ENTER" | "DOWNLOAD" | "UPLOAD" | "CREATE_FOLDER";
+  action:
+    | "ENTER"
+    | "DOWNLOAD"
+    | "UPLOAD"
+    | "CREATE_FOLDER"
+    | "DELETE_FILE"
+    | "DELETE_FOLDER";
   path: string;
   fileName?: string;
   size?: number;
@@ -378,7 +383,7 @@ export type EditTaskPayloadType = {
   workspaceId: string;
   projectId: string;
   data: Partial<{
-    title: string;
+    taskTypeCode: string;
     description: string;
     chapter: string;
     pageRange: string;
@@ -439,6 +444,10 @@ export type StopTaskTimerPayloadType = {
     pagesCompleted?: number;
     remarks?: string;
   };
+};
+
+export type StopAllTaskTimersPayloadType = {
+  workspaceId: string;
 };
 
 export type AllTaskPayloadType = {
