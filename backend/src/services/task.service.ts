@@ -90,6 +90,7 @@ export const updateTaskService = async (
   projectId: string,
   taskId: string,
   body: {
+    taskTypeCode?: string;
     title: string;
     description?: string;
     chapter?: string;
@@ -116,11 +117,30 @@ export const updateTaskService = async (
     );
   }
 
+  const { taskTypeCode, ...restBody } = body;
+  const updatePayload: typeof restBody & {
+    taskTypeCode?: string;
+    taskTypeName?: string;
+    title?: string;
+  } = {
+    ...restBody,
+  };
+
+  if (taskTypeCode) {
+    const taskType = getTaskTypeByCode(taskTypeCode);
+
+    if (!taskType) {
+      throw new BadRequestException("Invalid task type selected.");
+    }
+
+    updatePayload.taskTypeCode = taskType.code;
+    updatePayload.taskTypeName = taskType.name;
+    updatePayload.title = `${taskType.code} - ${taskType.name}`;
+  }
+
   const updatedTask = await TaskModel.findByIdAndUpdate(
     taskId,
-    {
-      ...body,
-    },
+    updatePayload,
     { new: true }
   );
 

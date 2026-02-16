@@ -46,6 +46,7 @@ export const createTaskSchema = z.object({
 });
 
 export const updateTaskSchema = z.object({
+  taskTypeCode: taskTypeCodeSchema.optional(),
   title: titleSchema,
   description: descriptionSchema,
   chapter: chapterSchema,

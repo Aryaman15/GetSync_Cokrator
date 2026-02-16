@@ -249,7 +249,13 @@ export type WorkspaceFileUploadResponseType = {
 
 export type WorkspaceFileActivityLogType = {
   _id: string;
-  action: "ENTER" | "DOWNLOAD" | "UPLOAD" | "CREATE_FOLDER";
+  action:
+    | "ENTER"
+    | "DOWNLOAD"
+    | "UPLOAD"
+    | "CREATE_FOLDER"
+    | "DELETE_FILE"
+    | "DELETE_FOLDER";
   path: string;
   fileName?: string;
   size?: number;
@@ -378,6 +384,7 @@ export type EditTaskPayloadType = {
   workspaceId: string;
   projectId: string;
   data: Partial<{
+    taskTypeCode: string;
     title: string;
     description: string;
     chapter: string;
