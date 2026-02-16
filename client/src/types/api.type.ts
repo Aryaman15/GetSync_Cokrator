@@ -446,6 +446,10 @@ export type StopTaskTimerPayloadType = {
   };
 };
 
+export type StopAllTaskTimersPayloadType = {
+  workspaceId: string;
+};
+
 export type AllTaskPayloadType = {
   workspaceId: string;
   projectId?: string | null;
